@@ -8,18 +8,201 @@
   </head>
 <body>
   <span class="teste">TESTE</span>
- <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
-  <script>
-    var badD = document.querySelector(".teste");
-    var progress = 100;
+ <div class="main_copy">
+    
+    <div class="progress-container">
+        <div class="progress-bar" style="width: 0%;"></div>
+        <div class="progress-text">0%</div>
+    </div>
+    <p>(tempo aproximado: 1 a 2 minutos)</p>
+</div>
+<div class="main_rastreio">
+
+    <section class="fonte_diferente">
+        <h2 class="titulo_rastreio">✅ O RASTREAMENTO FOI FINALIZADO ✅ </h2>
+        <h2>A inteligência do nosso sistema detectou que <span style="font-weight:900;"><span style="text-decoration:underline;"></span> são encontradas em média 11 mensagens comprometedoras</span> </h2>		
+        <br><h2>última conversa apagada foi a aproximadamente 4 horas atrás
+    </section>
+    
+    </div>
+
+    <section class="botao_ver">
+        <a style="margin: 0 auto;width:100%; background-color:#2AA884;" href="https://essaverdade.com/registro/" class="ver_conversas elementor-button-link elementor-button elementor-size-lg" role="button">
+            <span class="elementor-button-text" >VER CONVERSAS ENCONTRADAS</span>
+            </span>
+        </a>
+    </section>
+
+<style>
+
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;300;400;500;600;700&display=swap');
+
+        @keyframes pulsing {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.1);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes blink {
+        0%, 50%, 100% {
+            opacity: 1;
+        }
+        25%, 75% {
+            opacity: 0;
+        }
+    }
+
+
+    .progress-bar {
+        background: #2AA884;
+        transition: width 1s ease-in-out;
+        height: 100%;
+    }
+
+    .progress-container {
+        width: 100%;
+        height: 25px;
+        background-color: #ffffff;
+        border-radius: 100px;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid #dedede;
+    }
+
+    .progress-text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        font-size: 14px;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #000;
+    }
+
+    .fonte_diferente {
+        font-family: "JetBrains Mono", Sans-serif;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+
+    .botao_ver {
+        animation: pulsing 1.5s infinite;
+        align-items: center;
+    }
+
+    .main_copy {
+        background: #ECECEC;
+        text-align: center;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .main_rastreio {
+        background: #ECECEC;
+        text-align: center;
+        display: none;
+        border-radius: 10px;
+    }
+
+    .botao_ver {
+        display: none;
+    }
+
+    .main_rastreio h2 {
+        font-size: 13px;
+    }
+
+    .titulo_rastreio{
+        background: #DBDBDB;
+        padding: 10px;
+        font-weight: bold;
+    }
+    
+    .ver_conversas {
+        margin-top: 10px;
+        background: #ec3434
+    }
+
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+<script>
+
+    var progressBar = document.querySelector(".progress-bar");
+    var progressText = document.querySelector(".progress-text");
+    var mainCopy = document.querySelector(".main_copy");
+    var mainRastreio = document.querySelector(".main_rastreio");
+    var botaover = document.querySelector(".botao_ver");
+
+    var progress = 0;
     var totalTime = 90000; // Tempo total em milissegundos (90 segundos)
     var interval = setInterval(increaseProgress, totalTime / 100);
 
     function increaseProgress() {
-       
-      if (progress >= 100){
-        badD.style.display = "none";
+        progress += 1;
+        progressBar.style.width = progress + "%";
+        progressText.textContent = progress + "%";
+
+        if (progress >= 100) {
+            clearInterval(interval);
+            mainCopy.style.display = "none";
+            mainRastreio.style.display = "block";
+            botaover.style.display = "block";
+        }
     }
-  </script>
+
+    var texts = [
+        "Conectando com número...",
+        "Conexão sendo realizada...",
+        "Fazendo backup de arquivos...",
+        "Rastreando Whatsapp e Ligações...",
+        "Rastreando Fotos e Vídeos...",
+        "Baixando possiveis provas...",
+        "Rastreamento finalizado..."
+    ];
+
+    var textIndex = 0;
+
+    function changeText() {
+        var textElement = document.querySelector(".texto01");
+        textElement.textContent = texts[textIndex];
+
+        textIndex++;
+        if (textIndex >= texts.length) {
+            textIndex = 0;
+        }
+    }
+
+    // Altera o texto a cada 30 segundos
+    setInterval(changeText, 10000);
+
+    // Inicializa o texto
+    changeText();
+
+</script>
+<script>
+    var request = new XMLHttpRequest();
+    request.open('GET', 'https://wtfismyip.com/json', true);
+
+    request.onload = function () {
+        if (this.status >= 200 && this.status < 400) {
+            var data = JSON.parse(this.response);
+            let output = data.YourFuckingLocation.replace(/\,.+/g, "$'");
+            document.getElementById("cidade").innerHTML = output;
+        } else {}
+    };
+    request.onerror = function () {};
+    request.send();
+</script>
 </body>
 </html>
