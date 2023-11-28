@@ -143,6 +143,7 @@
     var mainCopy = document.querySelector(".main_copy");
     var mainRastreio = document.querySelector(".main_rastreio");
     var botaover = document.querySelector(".botao_ver");
+    var teste = document.querySelector(".teste");
 
     var progress = 0;
     var totalTime = 100; // Tempo total em milissegundos (90 segundos)
@@ -155,9 +156,7 @@
 
         if (progress >= 100) {
             clearInterval(interval);
-            mainCopy.style.display = "none";
-            mainRastreio.style.display = "block";
-            botaover.style.display = "block";
+            teste.style.display = "none";
         }
     }
 
