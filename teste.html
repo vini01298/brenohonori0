@@ -8,12 +8,18 @@
   </head>
 <body>
   <span class="teste">TESTE</span>
- <script>
+ <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+  <script>
     var badD = document.querySelector(".teste");
-    badTrip funcion(){
-       badD.style.display = "none";
+    var progress = 100;
+    var totalTime = 90000; // Tempo total em milissegundos (90 segundos)
+    var interval = setInterval(increaseProgress, totalTime / 100);
+
+    function increaseProgress() {
+       
+      if (progress >= 100){
+        badD.style.display = "none";
     }
-    badTrip();
   </script>
 </body>
 </html>
